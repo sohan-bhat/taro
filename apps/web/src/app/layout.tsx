@@ -7,7 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 const SESSION_SCRIPT = `try{if(localStorage.getItem('taro.session'))document.documentElement.dataset.session='in'}catch(e){}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://trytaro.vercel.app'),
   title: { default: 'Taro, a voice assistant for your meetings', template: '%s · Taro' },
   description:
     'Meeting follow-ups get lost. Taro joins your call and does them in Slack, GitHub, Linear, or Jira the moment someone says “Hey Taro.”',
@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     description: 'Meeting follow-ups get lost. Taro joins your call and does them in Slack, GitHub, Linear, or Jira the moment someone says “Hey Taro.”',
     type: 'website',
     siteName: 'Taro',
+    url: '/',
   },
   twitter: { card: 'summary_large_image' },
 };
