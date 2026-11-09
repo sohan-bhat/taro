@@ -1,7 +1,6 @@
 'use client';
 
 import { Suspense, useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { SignInProvider } from '@taro/shared';
 import { Alert } from '@/components/ui/alert';
@@ -9,7 +8,7 @@ import { Delayed } from '@/components/dashboard/common';
 import { SIGN_IN_PROVIDERS, SignInButtons } from '@/components/sign-in';
 import { api } from '@/lib/api';
 import { getToken, safeNextPath } from '@/lib/session';
-import { AUTH_BODY, AUTH_TITLE, AuthSplit, LINK } from './auth-split';
+import { AUTH_BODY, AUTH_TITLE, AuthSplit } from './auth-split';
 
 // Reasons the callback (or a signed-out page) sends people back here with ?error=.
 const ERRORS: Record<string, string> = {
@@ -69,21 +68,12 @@ export function SignInView() {
   return (
     <AuthSplit>
       <h1 className={AUTH_TITLE}>Sign in to Taro</h1>
-      <p className={AUTH_BODY}>
-        Use your work account. Colleagues who sign in with the same company account land in the same workspace.
-      </p>
+      <p className={AUTH_BODY}>Use your work account.</p>
       {/* The page is static, so the address is read on the client. Until then the buttons carry no return path. */}
       <Suspense fallback={<Options providers={providers} />}>
         <FromAddress providers={providers} />
       </Suspense>
-      <p className="mt-4 text-sm text-ash">Taro asks only for your name, email, and profile picture.</p>
-      <p className="mt-8 text-sm text-ink-2">
-        New here?{' '}
-        <Link href="/demo" className={LINK}>
-          See the demo first
-        </Link>
-        .
-      </p>
+      <p className="mt-4 text-sm text-ash">Sign-in shares only your name, email and profile picture.</p>
     </AuthSplit>
   );
 }
