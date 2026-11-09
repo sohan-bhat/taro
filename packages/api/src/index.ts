@@ -29,6 +29,7 @@ import { googleCalendarTick } from './services/calendar/googleSync';
 import { webhookTick } from './services/webhooks/dispatcher';
 import { calendarInvitesConfigured } from './lib/inviteAddress';
 import { slackListener } from './services/slackListener';
+import { startKeepAwake } from './services/keepAwake';
 import { realtimeSessions, type Direction } from './services/realtime';
 import { errorHandler } from './middleware/errorHandler';
 import { isAllowedCorsOrigin } from './lib/origins';
@@ -177,6 +178,7 @@ async function start() {
     server.listen(env.port, () => {
       log.info(`[Boot] Taro API listening on port ${env.port}`);
     });
+    startKeepAwake(env.keepAwakeUrl);
 
     if (env.slackAppToken) {
       await slackListener.start();

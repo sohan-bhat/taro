@@ -135,6 +135,7 @@ export const env = {
   // How many proxies sit in front of the API (1 on Render, Railway, Fly). Rate limits key on
   // the client IP these proxies report, so too high a number lets clients spoof it.
   trustProxyHops: Number(optional('TRUST_PROXY_HOPS', '1')),
+  keepAwakeUrl: optional('KEEP_AWAKE_URL', optional('RENDER_EXTERNAL_URL')),
 
   // Writes a JSONL trace and the first seconds of raw audio per meeting to disk. Debugging only.
   realtimeDebug: optional('REALTIME_DEBUG') === '1',

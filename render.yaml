@@ -1,8 +1,8 @@
 # Render Blueprint for the Taro API (render.com: New, then Blueprint, then pick this repo).
 # The dashboard deploys to Vercel; see docs/DEPLOY.md for the whole setup.
 # Free instances sleep after 15 minutes without requests, and a sleeping API misses
-# meeting links. Keep it awake with an uptime monitor on /health every 5 minutes
-# (docs/DEPLOY.md), or change the plan to starter, which never sleeps.
+# meeting links. The API requests its own /health every 10 minutes to stay awake, and an
+# uptime monitor on /health is a second safeguard (docs/DEPLOY.md). The starter plan never sleeps.
 
 services:
   - type: web

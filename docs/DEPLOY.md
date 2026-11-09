@@ -135,7 +135,7 @@ The API needs to stay running (no sleeping instances) and must be reachable over
 1. **New**, **Blueprint**, and pick this repository. `render.yaml` defines the service on the free plan.
 2. Fill in the environment variables it asks for (sections 1 to 4, plus `API_URL` and `APP_URL`).
 3. Deploy, then confirm `API_URL/ready` returns `{"status":"ready"}`.
-4. Keep it awake. Free instances sleep after 15 minutes without requests, and a sleeping Taro misses meeting links. Create a free monitor at [uptimerobot.com](https://uptimerobot.com) that requests `API_URL/health` every 5 minutes. For production use, switch the service to a paid instance type instead; those never sleep.
+4. Keep it awake. Free instances sleep after 15 minutes without requests, and a sleeping Taro misses meeting links. On Render the API requests its own `/health` every 10 minutes at the address in `RENDER_EXTERNAL_URL`. For a second safeguard, create a free monitor at [uptimerobot.com](https://uptimerobot.com) that requests `API_URL/health` every 5 minutes. For production use, switch the service to a paid instance type instead; those never sleep.
 
 ### Railway
 
@@ -179,6 +179,7 @@ Put it behind a reverse proxy that terminates TLS and passes WebSocket upgrades 
 | `WEB_ORIGINS` | no | Extra trusted dashboard origins, comma separated |
 | `EXTENSION_IDS` | for the Meet button | Chromium extension IDs allowed to call the API (section 7). Once it's set, the Firefox build may call it too |
 | `INVITE_ADDRESS`, `INBOUND_SECRET` | for calendar invitations | Section 9 |
+| `KEEP_AWAKE_URL` | no | Public https address the API requests `/health` on every 10 minutes, for hosts that sleep when idle. Defaults to `RENDER_EXTERNAL_URL`, which Render sets |
 | `TRUST_PROXY_HOPS` | no | Proxies in front of the API. Default 1, right for Render, Railway, and Fly; 0 when clients connect directly |
 | `MAX_ACTIVE_MEETINGS_PER_WORKSPACE` | no | Default 5 |
 | `SHARED_GROQ_API_KEY`, `SHARED_KEY_MEETINGS_PER_MONTH` | no | A free Groq key that workspaces without their own AI model or transcription use, for this many meetings a month each (default 10). You pay nothing on Groq's free tier, but its rate limits are shared by every workspace using it |
