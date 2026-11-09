@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { TranscriptRow } from '@/components/exchange';
-import { PrimaryCta } from '@/components/sign-in';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { HERO } from './content';
@@ -41,10 +40,7 @@ export const INTRO = {
   request: SAID.words[0].at,
   reply: 2350 + AFTER_HEADLINE,
   ding: 2600 + AFTER_HEADLINE,
-  // The lede and the buttons arrive as one block
   lede: 2660 + AFTER_HEADLINE,
-  buttons: 2660 + AFTER_HEADLINE,
-  // The nav's links and sign-in, and everything below the hero
   rest: 2780 + AFTER_HEADLINE,
   // When the last fade-up (320ms) is done
   end: 3100 + AFTER_HEADLINE,
@@ -102,12 +98,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className={cn(LINE, 'mt-7 md:mt-9')}>
-          <p className="in-up max-w-[52ch] text-pretty text-lede text-ink-2" style={ms({ d: INTRO.lede })}>
-            {HERO.lede}
-          </p>
-          <div className="in-up mt-6 flex flex-wrap gap-3 md:mt-7" style={ms({ d: INTRO.buttons })}>
-            <PrimaryCta size="lg" className="w-full sm:w-auto" />
+        <div className={cn(LINE, 'in-up mt-7 md:mt-9')} style={ms({ d: INTRO.lede })}>
+          <p className="text-pretty text-lede text-ink-2">{HERO.lede}</p>
+          <div className="mt-6 flex md:mt-7">
             <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
               <Link href="/demo">{HERO.demo}</Link>
             </Button>

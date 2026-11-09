@@ -59,15 +59,7 @@ const MERGE_ASKED = 'merge pull request fifty seven';
 const MERGE_OFF = COPY.turnedOff('merge_pull_request');
 const MERGE = GITHUB_CAPABILITIES.find((c) => c.action === 'merge_pull_request')!;
 
-// The labels most product sites use: short nouns for sections, a quiet sign-in link, one button.
 export const NAV = {
-  sections: [
-    { label: 'Product', href: '#how' },
-    { label: 'Features', href: '#say' },
-    { label: 'Pricing', href: '#keys' },
-    { label: 'FAQ', href: '#faq' },
-  ],
-  demo: 'Demo',
   signIn: 'Sign in',
   start: 'Get started',
   dashboard: 'Dashboard',
@@ -81,7 +73,7 @@ export const HERO = {
   request: 'Hey Taro, file an issue about that.',
   answer: OPENED_ISSUE,
   ding: 'Hear the ding',
-  lede: 'Say “Hey Taro” in any Google Meet, Zoom, or Teams call, and it does the work in Slack, GitHub, Linear, or Jira while you keep talking.',
+  lede: 'Say “Hey Taro” in any Google Meet, Zoom or Teams call.',
   demo: 'See the demo',
 };
 

@@ -19,19 +19,7 @@ export function NavSentinel() {
 
 const LINK = 'rounded-sm text-ui font-medium text-ink-2 transition-colors duration-120 hover:text-ink';
 
-export function Nav({
-  sections,
-  demo,
-  signIn,
-  start,
-  dashboard,
-}: {
-  sections: ReadonlyArray<{ label: string; href: string }>;
-  demo: string;
-  signIn: string;
-  start: string;
-  dashboard: string;
-}) {
+export function Nav({ signIn, start, dashboard }: { signIn: string; start: string; dashboard: string }) {
   const [scrolled, setScrolled] = useState(false);
 
   // The rule under the nav appears only once the page scrolls beneath it. An observer, not a scroll listener.
@@ -48,25 +36,14 @@ export function Nav({
       data-scrolled={scrolled}
       className="sticky top-0 z-40 border-b border-transparent bg-poi transition-colors duration-120 data-[scrolled=true]:border-rule"
     >
-      {/* Three columns from 1100px, so the section links stay centered whatever the right side holds */}
-      <div className={cn(C, 'grid h-[72px] grid-cols-[1fr_auto] items-center gap-4 wide:grid-cols-[1fr_auto_1fr]')}>
+      <div className={cn(C, 'flex h-[72px] items-center justify-between gap-4')}>
         {/* On phones the padding (cancelled by the margin) makes a 45px tap target without moving the wordmark */}
-        <Link href="/" aria-label="Taro home" className="-my-[5px] justify-self-start rounded-control py-[5px] md:my-0 md:py-0">
+        <Link href="/" aria-label="Taro home" className="-my-[5px] rounded-control py-[5px] md:my-0 md:py-0">
           <Wordmark size="nav" />
         </Link>
-        <nav aria-label="Sections" className="hidden items-center gap-7 wide:flex">
-          {sections.map((section) => (
-            <a key={section.href} href={section.href} className={LINK}>
-              {section.label}
-            </a>
-          ))}
-        </nav>
         {/* Visitors get Sign in and Get started; people already signed in get one Dashboard button. The head
             script marks them before first paint, so nothing swaps after hydration. */}
-        <div className="flex items-center gap-5 justify-self-end">
-          <Link href="/demo" className={cn(LINK, 'hidden min-h-11 items-center sm:inline-flex md:min-h-0')}>
-            {demo}
-          </Link>
+        <div className="flex items-center gap-5">
           <Link href="/signin" className={cn(LINK, 'session-out inline-flex min-h-11 items-center md:min-h-0')}>
             {signIn}
           </Link>
