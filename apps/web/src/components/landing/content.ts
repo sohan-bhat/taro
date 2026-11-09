@@ -2,7 +2,7 @@
 // in the Slack and GitHub mocks) is built with COPY from @taro/shared, so the page shows exactly
 // what the product posts.
 
-import { COPY, DEFAULT_GITHUB_ACTIONS, GITHUB_CAPABILITIES, slackLink, type GithubAction } from '@taro/shared';
+import { COPY, DEFAULT_GITHUB_ACTIONS, GITHUB_CAPABILITIES, slackLink } from '@taro/shared';
 import type { ShotId } from './scene/script';
 
 // One line of the meeting. In the #how scene people's lines are live captions, word by word.
@@ -242,27 +242,8 @@ export const HOW = {
   },
 };
 
-// What each GitHub action makes, for naming the ones a new workspace starts with
-const MAKES: Record<GithubAction, string> = {
-  create_github_issue: 'issues',
-  comment_github: 'comments',
-  create_pull_request: 'pull requests',
-  label_github_issue: 'labels',
-  assign_github_issue: 'assignments',
-  request_github_review: 'review requests',
-  close_github_issue: 'closed issues',
-  reopen_github_issue: 'reopened issues',
-  close_pull_request: 'closed pull requests',
-  merge_pull_request: 'merges',
-};
-
-// "a", "a and b", "a, b, and c"
-const andList = (items: readonly string[]) =>
-  items.length < 3 ? items.join(' and ') : `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
-
 export const SAY = {
   title: "Ask the way you'd ask a teammate.",
-  sub: 'Taro reads the last few minutes, so “that” and “it” point at the right thing.',
   groups: [
     { title: 'In Slack', items: ['Post a message', 'Make a checklist'] },
     {
@@ -270,31 +251,17 @@ export const SAY = {
       items: ['File an issue', 'Comment', 'Label', 'Assign', 'Request a review', 'Open a pull request', 'Close or reopen', 'Merge'],
     },
   ],
-  note: `Your workspace picks which GitHub actions are on. New workspaces start with ${andList(
-    DEFAULT_GITHUB_ACTIONS.map((action) => MAKES[action])
-  )}.`,
 };
 
 export const KEYS = {
-  title: 'Your accounts, your bill, your rules.',
+  title: 'Free, with your own keys.',
   // Row labels match the dashboard's Setup page
-  own: {
-    title: 'Bring your own keys',
-    rows: [
-      { label: 'Meeting bot', value: 'MeetingBaas' },
-      { label: 'AI model', value: 'Claude, GPT, Gemini, Groq, OpenRouter, or your own' },
-      { label: 'Transcription', value: 'Whisper on Groq or OpenAI' },
-    ],
-    after: 'You pay each provider directly, and Taro itself is free. Keys are checked, encrypted, and never shown again.',
-  },
-  lane: {
-    title: 'Stays in its lane',
-    items: [
-      'Acts as its own bot in Slack, GitHub, Linear, and Jira, never as you.',
-      'Does only the GitHub actions your workspace turns on.',
-      'Keeps the text of what it heard, never the audio.',
-    ],
-  },
+  rows: [
+    { label: 'Meeting bot', value: 'MeetingBaas' },
+    { label: 'AI model', value: 'Claude, GPT, Gemini, Groq, OpenRouter, or your own' },
+    { label: 'Transcription', value: 'Whisper on Groq or OpenAI' },
+  ],
+  lines: ['Taro uses its own bot account.', 'You choose which GitHub actions run.', 'Taro saves transcripts, never audio.'],
 };
 
 export const FAQ = {

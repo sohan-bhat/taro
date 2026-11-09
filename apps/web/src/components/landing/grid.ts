@@ -20,7 +20,7 @@ export const PAGE_SPLIT = 'grid wide:grid-cols-[calc(112px+(100%-160px)*7/12)_mi
 export const SECTION_PAD = 'pt-[88px] md:pt-[104px] wide:pt-[120px]';
 
 export const H2 = 'max-w-[16em] text-balance text-h2 font-750';
-export const SUB = 'mt-[18px] max-w-measure text-lede text-ink-2';
+export const ITEM = 'py-[7px] text-[17px] font-medium leading-[1.35] text-ink wide:text-[19px]';
 
 /** A group's heading over its list, on the one strong rule. */
 export const GROUP = 'border-b border-ink pb-2.5 text-[15px] font-semibold text-ink';
