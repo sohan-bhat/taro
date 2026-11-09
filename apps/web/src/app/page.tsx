@@ -1,7 +1,6 @@
 import { slackFace } from './fonts';
 import { Closing } from '@/components/landing/closing';
 import { NAV } from '@/components/landing/content';
-import { Faq } from '@/components/landing/faq';
 import { Footer } from '@/components/landing/footer';
 import { C, LINE, SECTION_PAD } from '@/components/landing/grid';
 import { Hero, INTRO } from '@/components/landing/hero';
@@ -32,7 +31,6 @@ export default function Home() {
             <Keys />
           </div>
         </div>
-        <Faq />
         <Closing />
       </main>
       <Footer />

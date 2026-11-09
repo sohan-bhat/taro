@@ -261,54 +261,21 @@ export const KEYS = {
     { label: 'AI model', value: 'Claude, GPT, Gemini, Groq, OpenRouter, or your own' },
     { label: 'Transcription', value: 'Whisper on Groq or OpenAI' },
   ],
-  lines: ['Taro uses its own bot account.', 'You choose which GitHub actions run.', 'Taro saves transcripts, never audio.'],
-};
-
-export const FAQ = {
-  title: 'Questions.',
-  // The toggle is a word, not an icon
-  toggle: { open: 'Answer', close: 'Close' },
-  items: [
-    {
-      q: 'What does Taro cost?',
-      a: 'Nothing. Taro itself is free. You pay MeetingBaas and your AI provider directly, at their own prices.',
-    },
-    {
-      q: 'What do I need to get started?',
-      a: 'A Google or Slack account to sign in with, a MeetingBaas API key, and a key for an AI model. A Groq or OpenAI key can cover transcription too. Slack, GitHub, Linear, and Jira are optional.',
-    },
-    {
-      q: 'Which meetings can Taro join?',
-      a: "Google Meet, Zoom, and Microsoft Teams. Connect your Google Calendar and Taro joins your meetings on its own, with no link to paste. You can also post a link in any Slack channel Taro is in, or paste it in your dashboard. Taro joins your public channels when it's added to Slack. For a channel created later, type /invite @taro there.",
-    },
-    {
-      q: 'Does Taro record our meetings?',
-      a: "Taro keeps the text of what it heard so you can review requests. The audio streams through Taro and isn't saved. Any recording the meeting bot makes stays in your MeetingBaas account, under its retention settings.",
-    },
-    {
-      q: 'Can we run our own copy?',
-      a: 'Yes. The API ships with a Dockerfile and the dashboard deploys to Vercel, so a team can host all of it on its own infrastructure.',
-    },
-  ],
+  lines: ['Taro uses its own bot account.', 'You choose which GitHub actions run.', 'Taro saves transcripts, not audio.'],
 };
 
 export const CLOSING = {
   label: 'Get started',
   said: 'Hey Taro, join our next meeting.',
   answer: "Sign in, and I'll take it from there.",
-  demoTitle: 'Look around first.',
-  demoBody: 'See a real Taro workspace. No sign-in needed.',
-  demo: 'See the demo',
 };
 
 export const FOOTER = {
   links: [
-    { label: 'Demo', href: '/demo' },
-    { label: 'Sign in', href: '/signin' },
     { label: 'Privacy', href: '/privacy' },
     { label: 'Terms', href: '/terms' },
   ],
   // Shown only when NEXT_PUBLIC_REPO_URL is set
   source: 'Source and deploy guide',
-  credits: 'Works with Slack, GitHub, Linear, Jira, Google Meet, Zoom, and Microsoft Teams. Those names and logos belong to their owners.',
+  credits: 'Product names and logos belong to their owners.',
 };

@@ -7,7 +7,7 @@ export function Keys() {
       <h2 id="keys-title" className={H2}>
         {KEYS.title}
       </h2>
-      <dl className="mt-8 border-t border-ink md:mt-10">
+      <dl className="mt-8 border-t border-ink md:mt-10 wide:mt-[72px]">
         {KEYS.rows.map((row) => (
           <div
             key={row.label}

@@ -1,7 +1,7 @@
 // One column system for every landing section. The first 112px of the container (an 88px speaker
 // track and a 24px gap; 56px on phones) is the margin where speaker names and times live. Everything
 // else starts on the line track after it, except the hero's headline, which spans the container. The
-// step results, the closing's right half, and the footer links all start on the same 7/5 line.
+// step results and the footer links start on the same 7/5 line.
 //
 // The speaker track itself, TRACK_LG, lives with TranscriptRow in components/exchange.tsx. It isn't
 // re-exported here because the nav, a client component, imports this file, and the re-export would
@@ -23,4 +23,4 @@ export const H2 = 'max-w-[16em] text-balance text-h2 font-750';
 export const ITEM = 'py-[7px] text-[17px] font-medium leading-[1.35] text-ink wide:text-[19px]';
 
 /** A group's heading over its list, on the one strong rule. */
-export const GROUP = 'border-b border-ink pb-2.5 text-[15px] font-semibold text-ink';
+export const GROUP = 'border-b border-ink pb-2.5 text-[15px] font-semibold leading-[22px] text-ink';
