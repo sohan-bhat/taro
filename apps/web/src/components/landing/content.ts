@@ -278,4 +278,5 @@ export const FOOTER = {
   // Shown only when NEXT_PUBLIC_REPO_URL is set
   source: 'Source and deploy guide',
   credits: 'Product names and logos belong to their owners.',
+  author: { lead: 'Built by', name: 'Sohan Bhat', href: 'https://sohanbhat.me/' },
 };

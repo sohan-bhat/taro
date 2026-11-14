@@ -33,6 +33,12 @@ export function Footer() {
                   </a>
                 </li>
               )}
+              <li>
+                {FOOTER.author.lead}{' '}
+                <a href={FOOTER.author.href} className={LINK}>
+                  {FOOTER.author.name}
+                </a>
+              </li>
             </ul>
             <p className="mt-3">{FOOTER.credits}</p>
           </div>

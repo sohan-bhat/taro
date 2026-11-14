@@ -166,3 +166,5 @@ Make sure a default repository, team, or project is chosen in Setup, and check t
 ## License
 
 MIT
+
+Built by [Sohan Bhat](https://sohanbhat.me/).

@@ -6,6 +6,17 @@ import { Toaster } from '@/components/ui/toaster';
 // Runs before first paint so signed-in visitors never see "Get started" flash into "Open your dashboard".
 const SESSION_SCRIPT = `try{if(localStorage.getItem('taro.session'))document.documentElement.dataset.session='in'}catch(e){}`;
 
+const AUTHOR = { name: 'Sohan Bhat', url: 'https://sohanbhat.me/' };
+
+const JSON_LD = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareSourceCode',
+  name: 'Taro',
+  url: 'https://trytaro.vercel.app',
+  codeRepository: 'https://github.com/sohan-bhat/Taro',
+  author: { '@type': 'Person', '@id': 'https://sohanbhat.me/#person', ...AUTHOR },
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://trytaro.vercel.app'),
   title: { default: 'Taro, a voice assistant for your meetings', template: '%s · Taro' },
@@ -19,6 +30,7 @@ export const metadata: Metadata = {
     url: '/',
   },
   twitter: { card: 'summary_large_image' },
+  authors: [AUTHOR],
 };
 
 export const viewport: Viewport = { themeColor: '#F4F0F6', viewportFit: 'cover' };
@@ -29,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={`${saidFace.variable} ${recordFace.variable} ${codeFace.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: SESSION_SCRIPT }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON_LD }} />
       </head>
       <body className="min-h-screen bg-poi font-sans text-ink antialiased">
         <a
