@@ -13,6 +13,13 @@ services:
     plan: free
     healthCheckPath: /ready
     numInstances: 1
+    buildFilter:
+      paths:
+        - packages/api/**
+        - packages/shared/**
+        - package.json
+        - pnpm-lock.yaml
+        - pnpm-workspace.yaml
     envVars:
       - key: NODE_ENV
         value: production
