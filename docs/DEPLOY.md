@@ -132,10 +132,29 @@ The API needs to stay running (no sleeping instances) and must be reachable over
 
 ### Render
 
+The free web service needs no payment card. It sleeps after 15 minutes without inbound requests. A workspace gets 750 free hours a month, which covers this one service around the clock and nothing more. The free Hobby workspace also includes 5 GB of outbound bandwidth a month, about 45 hours of transcribed speech, and Render suspends free services for the rest of the month once it runs out.
+
+**With the script**, the quickest way
+
+1. Sign up at [render.com](https://render.com) with GitHub and let Render see this repository.
+2. In MongoDB Atlas open **Network Access** and allow access from anywhere (`0.0.0.0/0`), since free Render services have no fixed address.
+3. In Render open **Account Settings**, **API Keys**, and create a key. Open `.env` in a text editor and add a line `RENDER_API_KEY=` followed by the key. Never paste the key into a chat or a commit.
+4. Run `node scripts/render-cutover.mjs` from the repository root. It makes `taro-api` on the free plan, or updates it if it already exists. It copies the settings the API uses from `.env` without printing any value, sets `API_URL` to the service's address, deploys, waits for `/health` and `/ready`, and prints the address with the redirect URLs to add. Running it again is safe. It also reads `RENDER_OWNER_ID` (when the key reaches more than one workspace), `RENDER_REGION` (default `oregon`, fixed once the service exists) and `RENDER_BRANCH` (default `main`) from `.env` when they are set.
+
+**By hand**
+
 1. **New**, **Blueprint**, and pick this repository. `render.yaml` defines the service on the free plan.
 2. Fill in the environment variables it asks for (sections 1 to 4, plus `API_URL` and `APP_URL`).
 3. Deploy, then confirm `API_URL/ready` returns `{"status":"ready"}`.
-4. Keep it awake. Free instances sleep after 15 minutes without requests, and a sleeping Taro misses meeting links. On Render the API requests its own `/health` every 10 minutes at the address in `RENDER_EXTERNAL_URL`. For a second safeguard, create a free monitor at [uptimerobot.com](https://uptimerobot.com) that requests `API_URL/health` every 5 minutes. For production use, switch the service to a paid instance type instead; those never sleep.
+
+Keep it awake, because a sleeping Taro misses meeting links. The API requests its own `/health` every 10 minutes at `RENDER_EXTERNAL_URL`. Render counts inbound requests as activity, but none of its pages says whether a request a service sends to itself counts, so add an outside check as well. Create a free monitor at [uptimerobot.com](https://uptimerobot.com) that requests `API_URL/health` every 5 minutes. Never point it at `/robots.txt`, which Render answers itself while the service sleeps. A paid instance type never sleeps.
+
+### Moving the API to a new address
+
+1. Set `NEXT_PUBLIC_API_URL` on Vercel to the new address and redeploy the dashboard (section 6).
+2. Add the new redirect URLs. Slack takes `API_URL/api/slack/callback` and `API_URL/api/auth/slack/callback`. Google takes `API_URL/api/auth/google/callback`. The GitHub App takes `API_URL/api/github/callback`. Linear takes `API_URL/api/linear/callback`.
+3. Stop the old API for good. Only one API may run, since two would both hold the Slack Socket Mode connection.
+4. People already signed in stay signed in, because the dashboard sends Bearer tokens. Anyone using the Meet button connects it once more from the dashboard, since the extension keeps the address it first connected to. Connected Google Calendars notice changes within 10 minutes until their notice channels renew at the new address, which happens within a week.
 
 ### Railway
 
@@ -198,6 +217,15 @@ Put it behind a reverse proxy that terminates TLS and passes WebSocket upgrades 
    - `NEXT_PUBLIC_GITHUB_APP_SLUG` = your API's `GITHUB_APP_SLUG`, so examples name your GitHub App
    - `NEXT_PUBLIC_TARO_EXTENSION_IDS` and `NEXT_PUBLIC_TARO_EXTENSION_URL` only for the Google Meet button (section 7)
 3. Deploy. If the Vercel domain is your `APP_URL`, you're done; otherwise add your custom domain and keep `APP_URL` in sync. Preview deployments need their origin in the API's `WEB_ORIGINS` to sign in.
+
+When the API moves, change `NEXT_PUBLIC_API_URL` and build the site again, since the address is compiled in. In the Vercel dashboard open the project, then **Settings**, **Environment Variables**, edit `NEXT_PUBLIC_API_URL` for Production and Preview, and save. Then open **Deployments**, choose the newest Production deployment, open its menu, and choose **Redeploy**. The terminal way is below, once you are signed in to Vercel.
+
+```bash
+cd apps/web
+npx vercel@latest link
+printf %s "https://NEW-API-ADDRESS" | npx vercel@latest env update NEXT_PUBLIC_API_URL --yes
+npx vercel@latest redeploy https://YOUR-LATEST-PRODUCTION-DEPLOYMENT.vercel.app
+```
 
 ## 7. The Invite Taro button in Google Meet (optional)
 
